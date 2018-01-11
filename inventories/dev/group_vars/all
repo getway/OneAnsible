@@ -1,4 +1,4 @@
 ---
 ENV: dev
 ansible_ssh_user: vagrant
-WAR_DIR: /data/repos/java/war
+REPO_WAR_DIR: /data/repos/java/war

@@ -1,0 +1,7 @@
+---
+# task file for tomcat configure files && application configure
+- name: rsync tomcat configure to remote hosts
+  synchronize:
+    src: tomcat/
+    dest: /etc/tomcat/
+    delete: yes
