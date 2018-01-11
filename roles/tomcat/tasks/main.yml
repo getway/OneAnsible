@@ -1,13 +1,3 @@
 ---
 # tasks file for tomcat
-- name: Install jdk 1.8
-  yum: name=jdk1.8.0_111 state=present
-
-- name: install tomcat
-  yum: name=tomcat state=present
-
-- name: enable tomcat
-  service:
-    name: tomcat
-    state: started
-    enabled: True
+- include: install.yml

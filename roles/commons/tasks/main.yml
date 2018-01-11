@@ -33,3 +33,6 @@
     minute: "*/5"
     job: "/usr/sbin/ntpdate 0.cn.pool.ntp.org >/dev/null 2>&1 ; /sbin/hwclock --systohc"
   tags: ntp
+
+#set selinux is disabled
+- include: SELinux.yml SELINUX_STATE=disabled

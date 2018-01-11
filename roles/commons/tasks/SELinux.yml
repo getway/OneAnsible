@@ -1,0 +1,17 @@
+---
+#管理selinux
+- name: Install python SElinux library
+  package: name=libselinux-python state=present
+  tags: selinux
+
+- name: Ensure SeLinux is disabled in `targeted` mode
+  selinux: policy=targeted state={{SELINUX_STATE}}
+  notify:
+    reboot system
+  tags: selinux
+
+# - name: Set SELinux in permissive mode until the machine is rebooted
+#   command: setenforce 0
+#   ignore_errors: true
+#   changed_when: false
+# when: "'disabled' in SELINUX_STATE"

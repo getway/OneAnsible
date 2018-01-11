@@ -3,3 +3,6 @@
 
 - name: reload sysctl
   command: sysctl -p
+
+- name: reboot system
+  command: shutdown -r +1
