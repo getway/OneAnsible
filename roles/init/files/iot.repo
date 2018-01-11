@@ -1,0 +1,6 @@
+[iot]
+name=iot-el7
+baseurl=http://192.168.59.2/centos/7/os/x86_64/
+path=/
+enabled=1
+gpgcheck=0

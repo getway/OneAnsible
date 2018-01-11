@@ -1,0 +1,35 @@
+- name: Update sysctl.conf on the server.
+  template: src=sysctl.conf dest=/etc/sysctl.conf owner=root group=root backup=yes mode=0644
+  notify: reload sysctl
+  tags: sysctl.conf
+
+- name: Update limits.conf on the server.
+  template: src=limits.conf dest=/etc/security/limits.conf mode=0644
+  tags: limits.conf
+
+- name: Update 'etc/hosts' on the server.
+  template: src=hosts/etc_hosts_{{ENV}} dest=/etc/hosts owner=root group=root mode=0644
+  tags: hosts
+
+- name: update etc/sudoers
+  template: src=sudoers dest=/etc/sudoers owner=root group=root mode=0440
+  tags: sudoers
+
+- name: update rc.local
+  template: src=rc.local dest=/etc/rc.d/rc.local owner=root group=root mode=0644
+  tags: rc.local
+
+- name: update 20-nproc.conf
+  template: src=20-nproc.conf dest=/etc/security/limits.d/20-nproc.conf owner=root group=root mode=0644
+  tags: 20-nproc.conf
+
+- name: set timezone to Asia/Shanghai
+  timezone:
+    name: Asia/Shanghai
+  tags: ntp
+
+- cron:
+    name: "ntpdate time"
+    minute: "*/5"
+    job: "/usr/sbin/ntpdate 0.cn.pool.ntp.org >/dev/null 2>&1 ; /sbin/hwclock --systohc"
+  tags: ntp

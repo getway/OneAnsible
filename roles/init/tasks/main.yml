@@ -1,0 +1,70 @@
+---
+# tasks file for init
+- name: Install softwares wget,curl,vim
+  yum: name={{ item }} state=present
+  with_items:
+    - wget
+    - curl
+    - vim
+
+- name: get aliyun repo
+  copy: src=CentOS-Base.repo dest=/etc/yum.repos.d/CentOS-Base.repo owner=root group=root mode=644
+  notify: yum-clean-metadata
+
+- name: get iot repo
+  copy: src=iot.repo dest=/etc/yum.repos.d/iot.repo owner=root group=root mode=644
+  notify: yum-clean-metadata
+
+- name: get epel repo
+  copy: src=epel.repo dest=/etc/yum.repos.d/epel.repo owner=root group=root mode=644
+  notify: yum-clean-metadata
+
+# - name: Make sure openjdk is uninstall
+#   yum: pkg=openjdk state=absent
+
+- name: Install softwares
+  yum: name={{ item }} state=present
+  with_items:
+    - libselinux-python
+    - ntp
+    # - openjdk
+    #- jdk18
+
+- name: Install dev softwares
+  yum: name={{ item }} state=present
+  with_items:
+    - net-tools
+    - lrzsz
+    - unzip
+    - gcc
+    - gcc-c++
+    - make
+    - cmake
+    - libxml2-devel
+    - openssl-devel
+    - curl-devel
+    - libaio-devel
+
+- script: ./script/inithostname.py
+  register: ipfull
+  ignore_errors: True
+
+- name: Update Hostname
+  command: hostnamectl set-hostname {{ project_name }}-{{ ipfull['stdout_lines'][0] }}
+  when: ipfull.rc == 0 and "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'"
+
+- name: set timezone to Asia/Shanghai
+  timezone:
+    name: Asia/Shanghai
+
+- cron:
+    name: "ntpdate time"
+    minute: "*/5"
+    job: "/usr/sbin/ntpdate 0.cn.pool.ntp.org >/dev/null 2>&1 ; /sbin/hwclock --systohc"
+  tags: ntp
+
+# - name: Update sshd_config - GSSAPIAuthentication
+#   command: sed -i 's/^GSSAPIAuthentication yes$/GSSAPIAuthentication no/' /etc/ssh/sshd_config
+
+# - name: Update sshd_config - UseDNS
+#   command: sed -i 's/#UseDNS yes/UseDNS no/' /etc/ssh/sshd_config

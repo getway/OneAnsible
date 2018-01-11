@@ -1,0 +1,14 @@
+[all:children]
+server
+client
+
+[server]
+192.168.59.2
+
+[client]
+192.168.59.3
+192.168.59.4
+
+[jenkins]
+192.168.59.3
+192.168.59.4

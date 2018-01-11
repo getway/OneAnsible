@@ -1,0 +1,8 @@
+---
+# handlers file for init
+
+# Handler showing how to clean yum metadata cache
+- name: yum-clean-metadata
+  command: yum clean all
+  args:
+    warn: no

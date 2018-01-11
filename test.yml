@@ -1,0 +1,11 @@
+- name: display environment name
+  hosts: all
+  vars:
+    a: [1,2,3,4,5]
+    b: [2,3]
+    hostname: test
+  tasks:
+    - script: ./script/inithostname.py
+      register: ipfull
+      ignore_errors: True
+    - debug: var="{{ ipfull['stdout_lines'][0] }}"

@@ -1,0 +1,12 @@
+#!/usr/bin/env ansible-playbook
+# provision.yml
+
+- name: run common role for all hosts
+  hosts: all
+  roles:
+    - commons
+
+- name: run jenkins for host's 
+  hosts: jenkins
+  roles:
+    - tomcat

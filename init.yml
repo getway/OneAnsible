@@ -1,0 +1,5 @@
+---
+- name: Init base environment for {{hosts}}
+  hosts: "{{hosts}}"
+  roles:
+    - init

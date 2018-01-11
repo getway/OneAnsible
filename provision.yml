@@ -1,0 +1,17 @@
+#!/usr/bin/env ansible-playbook
+# provision.yml
+- name: display environment name
+  hosts: localhost
+  tags: always
+  tasks:
+    - debug:
+        msg: "MyApp environment :::> {{ app_env }}"
+- name: display environment name
+  hosts: localhost
+  tags: always
+  tasks:
+    - debug:
+        msg: "MyApp OS :::> {{ ansible_os_family }}"
+# - include: provision-dbs.yml
+# - include: provision-apps.yml
+# - include: provision-webs.yml
