@@ -6,7 +6,8 @@
   roles:
     - commons
 
-- name: run jenkins for host's 
+- name: run deploy for host's 
   hosts: jenkins
+  serial: 1
   roles:
     - tomcat

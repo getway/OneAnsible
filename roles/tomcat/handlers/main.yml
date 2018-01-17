@@ -1,7 +1,15 @@
 ---
 # handlers file for tomcat
 
+- name: rsync war
+  synchronize:
+    src: "{{REPO_WAR_DIR}}/{{PROJECT_NAME}}/{{PROJECT_NAME}}.war"
+    dest: "{{TOMCAT_WEBAPP_DIR}}/{{PROJECT_NAME}}.war"
+    checksum: yes
+  tags: rsync_war
+
 - name: restart tomcat
   service:
     name: tomcat
     state: restarted
+  tags: deploy_war

@@ -11,3 +11,9 @@
     name: tomcat
     state: started
     enabled: True
+
+# - name: check some path
+#   file: path="{{ item }}" state=directory
+#   with_items:
+#     - "{{RSYNC_TMP_PATH}}"
+#     - "{{PKG_OLD_VERSION_PATH}}"

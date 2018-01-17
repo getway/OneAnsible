@@ -1,0 +1,16 @@
+# task for tomcat war deploy
+
+- name: "同步项目: {{PROJECT_NAME}} 到远程服务器临时目录..."
+  synchronize:
+    src: "{{REPO_WAR_DIR}}/{{PROJECT_NAME}}/"
+    dest: "{{RSYNC_TMP_PATH}}/{{PROJECT_NAME}}/"
+    rsync_opts: "--include=md5,--include={{PROJECT_NAME}}.war,--exclude=*"
+  tags: rsync_war
+
+- name: "正在部署项目：{{PROJECT_NAME}}..."
+  synchronize:
+    src: "{{REPO_WAR_DIR}}/{{PROJECT_NAME}}/{{PROJECT_NAME}}.war"
+    dest: /var/lib/tomcat/webapps/{{PROJECT_NAME}}.war
+    checksum: yes
+  notify: restart tomcat
+  tags: deploy_war

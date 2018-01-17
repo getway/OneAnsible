@@ -1,8 +1,9 @@
 # task for tomcat war deploy
-- name: rsync war app
+
+- name: "检查项目：{{PROJECT_NAME}}...是否有更新？"
   synchronize:
     src: "{{REPO_WAR_DIR}}/{{PROJECT_NAME}}/{{PROJECT_NAME}}.war"
-    dest: /var/lib/tomcat/webapps/{{PROJECT_NAME}}.war
+    dest: "{{TOMCAT_WEBAPP_DIR}}/{{PROJECT_NAME}}.war"
     checksum: yes
   notify: restart tomcat
   tags: deploy_war
