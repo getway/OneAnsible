@@ -1,3 +1,12 @@
+- script: ./script/inithostname.py
+  register: ipfull
+  ignore_errors: True
+
+- name: set hostname
+  hostname:
+    name: "{{ PROJECT_NAME }}-{{ ipfull['stdout_lines'][0] }}.{{ ENV }}.{{ SERVER_TYPE }}.cmiot"
+  when: ipfull.rc == 0
+
 - name: Update sysctl.conf on the server.
   template: src=sysctl.conf dest=/etc/sysctl.conf owner=root group=root backup=yes mode=0644
   notify: reload sysctl
@@ -36,3 +45,4 @@
 
 #set selinux is disabled
 - include: SELinux.yml SELINUX_STATE=disabled
+

@@ -1,9 +1,18 @@
 # task for tomcat war deploy
 
-- name: "检查项目：{{PROJECT_NAME}}...是否有更新？"
+- name: "检查项目：'{{PROJECT_NAME}}'...是否有更新？"
   synchronize:
     src: "{{REPO_WAR_DIR}}/{{PROJECT_NAME}}/{{PROJECT_NAME}}.war"
     dest: "{{TOMCAT_WEBAPP_DIR}}/{{PROJECT_NAME}}.war"
     checksum: yes
   notify: restart tomcat
   tags: deploy_war
+
+#检查url是否正常
+- name: check url 
+  testurl:
+    url: "{{ CHECK_URL }}"
+    timeout: 5
+    retry: 3
+  when: CHECK_URL != ''
+  tags: check_url

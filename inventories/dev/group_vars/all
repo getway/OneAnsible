@@ -1,7 +1,9 @@
 ---
 ENV: dev
+CHECK_URL: ''
 ansible_ssh_user: vagrant
 RSYNC_TMP_PATH: /data/rsync/source_code
 PKG_OLD_VERSION_PATH: /data/rsync/last_code
 REPO_WAR_DIR: /data/repos/java/war
 TOMCAT_WEBAPP_DIR: /var/lib/tomcat/webapps
+SERVER_TYPE: base

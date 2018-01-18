@@ -5,9 +5,3 @@
   hosts: all
   roles:
     - commons
-
-- name: run deploy for host's 
-  hosts: jenkins
-  serial: 1
-  roles:
-    - tomcat

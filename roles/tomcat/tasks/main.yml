@@ -2,5 +2,4 @@
 # tasks file for tomcat
 # - include: install.yml
 - include: configure.yml
-- include: deploy.yml PROJECT_NAME=jenkins
-- include: deploy.yml PROJECT_NAME=sparkjava-hello-world
+- include: deploy.yml

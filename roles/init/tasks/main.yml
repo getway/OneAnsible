@@ -49,10 +49,10 @@
   register: ipfull
   ignore_errors: True
 
-- name: Update Hostname
-  command: hostnamectl set-hostname {{ project_name }}-{{ ipfull['stdout_lines'][0] }}
-  when: ipfull.rc == 0 and "ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'"
-
+- name: set hostname
+  hostname:
+    name: "{{ PROJECT_NAME }}-{{ ipfull['stdout_lines'][0] }}.{{ ENV }}.{{ SERVER_TYPE }}.cmiot"
+  when: ipfull.rc == 0
 - name: set timezone to Asia/Shanghai
   timezone:
     name: Asia/Shanghai

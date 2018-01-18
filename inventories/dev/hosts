@@ -1,14 +1,10 @@
 [all:children]
 server
-client
+tomcat
 
 [server]
-192.168.59.2
+192.168.59.2 PROJECT_NAME=server
 
-[client]
-192.168.59.3
-192.168.59.4
-
-[jenkins]
-192.168.59.3
-192.168.59.4
+[tomcat]
+192.168.59.3 PROJECT_NAME=jenkins
+192.168.59.4 PROJECT_NAME=sparkjava-hello-world

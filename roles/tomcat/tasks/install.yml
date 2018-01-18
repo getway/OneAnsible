@@ -2,15 +2,18 @@
 # tasks file for tomcat
 - name: Install jdk 1.8
   yum: name=jdk1.8.0_111 state=present
+  tags: install_jdk1.8
 
 - name: install tomcat
   yum: name=tomcat state=present
+  tags: install_tomcat
 
 - name: enable tomcat
   service:
     name: tomcat
     state: started
     enabled: True
+  tags: install_tomcat
 
 # - name: check some path
 #   file: path="{{ item }}" state=directory

@@ -3,9 +3,9 @@
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
 {% for item in groups['all'] %}
-{% set hostname_tmp = hostvars[item]['ansible_hostname']|default('') %}
+{% set hostname_tmp = hostvars[item]['ansible_fqdn']|default('') %}
 {% if hostname_tmp != '' %}
-{{ item }} {{ hostvars[item]['ansible_hostname'] }}
+{{ item }} {{ hostvars[item]['ansible_fqdn'] }}
 {% endif %}
 {% endfor %}
 

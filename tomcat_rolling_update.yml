@@ -1,0 +1,6 @@
+---
+- name: run rolling deploy
+  hosts: tomcat
+  serial: 1
+  roles:
+    - tomcat

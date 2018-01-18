@@ -16,21 +16,21 @@ from ansible.module_utils.basic import *
 STATUS_200 = 0
 STATUS_NOT_200 = 2
 ERROR = 1
-URL_ERROR = -1
+URL_ERROR = -2
 
 #函数：获取url返回状态
 def get_url_status(url, timeout=3):
     if not re.match(r'^https?:/{2}\w.+$', url):  
-        return URL_ERROR, "URL Error: the url shoud be like http://%s"%url
+        return URL_ERROR, "URL Error: the url shoud be like http://%s"%url, None
     try:
         response = urllib2.urlopen(url, timeout = timeout)
         status = response.code
-        if status == 200:
-            return STATUS_200, "Status 200"
-        else:
-            return STATUS_NOT_200, "Not 200:%s"%status
-    except Exception as e:
-        return URL_ERROR, str(e)
+    except urllib2.HTTPError as e:
+        return STATUS_NOT_200, str(e), e.code
+    except urllib2.URLError as e:
+        return URL_ERROR, str(e), None
+    else:
+        return STATUS_200, "Status 200", status
 
 #因为客户端有可能没有requests模块，所以直接使用urllib2    
 # def get_url_status(url, timeout=3):
@@ -70,21 +70,23 @@ retry = module.params['retry']
 n = 0
 data = {'ok':None,'faild':None}
 for i in range(0,retry):
-    status, msg = get_url_status(url=url, timeout=timeout)
+    status, msg, code = get_url_status(url=url, timeout=timeout)
     if status == STATUS_200:
         n = n+1
         if not data['ok']:
-            data['ok'] = [status, msg]
+            data['ok'] = [status, msg, code]
     else:
         if not data['faild']:
-            data['faild'] = [status, msg]
+            data['faild'] = [status, msg, code]
 if n==retry:
     status = data['ok'][0]
     msg = data['ok'][1]
-    result = dict(msg=msg,rc=status)
+    code = data['ok'][2]
+    result = dict(msg=msg,rc=status, code=code)
     module.exit_json(**result)
 else:
     status = data['faild'][0]
     msg = data['faild'][1]
-    result = dict(msg=msg,rc=status)
+    code = data['faild'][2]
+    result = dict(msg=msg,rc=status, code=code)
     module.exit_json(**result)
