@@ -45,14 +45,17 @@
     - curl-devel
     - libaio-devel
 
-- script: ./script/inithostname.py
-  register: ipfull
-  ignore_errors: True
+#这个变量通过脚本注册不太好
+# - script: ./script/inithostname.py
+#   register: ipfull
+#   ignore_errors: True
 
+#使用自定义filter直接过滤系统变量生成新的
 - name: set hostname
   hostname:
-    name: "{{ PROJECT_NAME }}-{{ ipfull['stdout_lines'][0] }}.{{ ENV }}.{{ SERVER_TYPE }}.cmiot"
-  when: ipfull.rc == 0
+    name: "{{ PROJECT_NAME }}-{{ ansible_all_ipv4_addresses[0]|iprand }}.{{ ENV }}.{{ SERVER_TYPE }}.cmiot"
+  # when: ipfull.rc == 0
+
 - name: set timezone to Asia/Shanghai
   timezone:
     name: Asia/Shanghai

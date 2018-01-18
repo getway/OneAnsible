@@ -3,9 +3,10 @@
   vars:
     a: [1,2,3,4,5]
     b: [2,3]
-    hostname: test
+    hostname: "192.168.56.2"
   tasks:
     - script: ./script/inithostname.py
       register: ipfull
       ignore_errors: True
     - debug: var="{{ ipfull['stdout_lines'][0] }}"
+    - debug: var="{{ hostname.split(',') }}"
