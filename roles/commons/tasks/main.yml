@@ -1,11 +1,7 @@
-- script: ./script/inithostname.py
-  register: ipfull
-  ignore_errors: True
-
-- name: set hostname
-  hostname:
-    name: "{{ PROJECT_NAME }}-{{ ipfull['stdout_lines'][0] }}.{{ ENV }}.{{ SERVER_TYPE }}.cmiot"
-  when: ipfull.rc == 0
+---
+# - name: set hostname
+#   hostname:
+#     name: "{{ PROJECT_NAME }}-{{ ansible_all_ipv4_addresses[0]|iprand }}.{{ ENV }}.{{ SERVER_TYPE }}.cmiot"
 
 - name: Update sysctl.conf on the server.
   template: src=sysctl.conf dest=/etc/sysctl.conf owner=root group=root backup=yes mode=0644

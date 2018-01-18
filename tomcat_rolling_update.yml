@@ -1,6 +1,27 @@
 ---
+
 - name: run rolling deploy
-  hosts: tomcat
+  hosts: "{{hosts}}"
   serial: 1
+  vars_files: 
+    - roles/tomcat/vars/main.yml
+
+  # pre_tasks:
+  #   - name: 
+  # ...
+
+  tasks:
+    - debug: msg="Deployment would be done here."
+
   roles:
     - tomcat
+
+  post_tasks:
+    - name: Wait for backend to come back up.
+      wait_for:
+        host: '{{ inventory_hostname }}'
+        port: '{{ SERVER_PORT }}'
+        state: started
+        timeout: 60
+
+

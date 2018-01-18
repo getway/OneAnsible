@@ -1,2 +1,5 @@
 ---
 # vars file for tomcat
+
+SERVER_TYPE: tomcat
+SERVER_PORT: 8080

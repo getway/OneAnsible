@@ -103,8 +103,10 @@ ansible
 ## 2 一些常用操作
 2.1 系统初始化：
 ```shell
-#给所有主机组all初始化,项目名在inventory里面
+#1)给所有主机组all初始化,项目名在inventory里面
 ansible-playbook -i inventories/dev/hosts init.yml --extra-vars "hosts=all"
 #或者项目名再次指定
 ansible-playbook -i inventories/dev/hosts init.yml --extra-vars "hosts=jenkins project_name=jenkins"
+#2)更新项目：jenkins
+ansible-playbook -i inventories/dev/hosts tomcat_rolling_update.yml --extra-vars "hosts=jenkins"
 ```

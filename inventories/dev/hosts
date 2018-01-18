@@ -1,10 +1,21 @@
-[all:children]
-server
-tomcat
+[all]
+192.168.59.2
+192.168.59.3
+192.168.59.4
 
 [server]
-192.168.59.2 PROJECT_NAME=server
+192.168.59.2
 
-[tomcat]
-192.168.59.3 PROJECT_NAME=jenkins
-192.168.59.4 PROJECT_NAME=sparkjava-hello-world
+[jenkins]
+192.168.59.2
+192.168.59.3
+
+[sparkjava-hello-world]
+192.168.59.4
+
+[jenkins:vars]
+PROJECT_NAME=jenkins
+CHECK_URL="http://www.baidu.com"
+
+[sparkjava-hello-world:vars]
+PROJECT_NAME=sparkjava-hello-world

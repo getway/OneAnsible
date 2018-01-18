@@ -1,5 +1,6 @@
 ---
 # tasks file for tomcat
-# - include: install.yml
+
+- include: install.yml
 - include: configure.yml
 - include: deploy.yml

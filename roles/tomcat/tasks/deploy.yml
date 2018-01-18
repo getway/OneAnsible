@@ -1,6 +1,6 @@
 # task for tomcat war deploy
 
-- name: "检查项目：'{{PROJECT_NAME}}'...是否有更新？"
+- name: "检查项目：{{PROJECT_NAME}} 是否有更新？"
   synchronize:
     src: "{{REPO_WAR_DIR}}/{{PROJECT_NAME}}/{{PROJECT_NAME}}.war"
     dest: "{{TOMCAT_WEBAPP_DIR}}/{{PROJECT_NAME}}.war"
