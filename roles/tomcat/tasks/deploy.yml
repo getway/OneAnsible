@@ -7,12 +7,3 @@
     checksum: yes
   notify: restart tomcat
   tags: deploy_war
-
-#检查url是否正常
-- name: check url 
-  testurl:
-    url: "{{ CHECK_URL }}"
-    timeout: 5
-    retry: 3
-  when: CHECK_URL != ''
-  tags: check_url

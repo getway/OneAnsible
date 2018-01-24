@@ -16,12 +16,4 @@
   roles:
     - tomcat
 
-  post_tasks:
-    - name: Wait for backend to come back up.
-      wait_for:
-        host: '{{ inventory_hostname }}'
-        port: '{{ SERVER_PORT }}'
-        state: started
-        timeout: 60
-
-
+  

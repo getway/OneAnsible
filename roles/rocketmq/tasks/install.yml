@@ -1,0 +1,6 @@
+---
+- name: install apache-rocketmq
+  yum: name=apache-rocketmq state=present
+  tags: install_apache-rocketmq
+
+

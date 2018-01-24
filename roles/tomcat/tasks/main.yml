@@ -4,3 +4,19 @@
 - include: install.yml
 - include: configure.yml
 - include: deploy.yml
+
+- name: Wait for backend to come back up.
+  wait_for:
+    host: '{{ inventory_hostname }}'
+    port: '{{ SERVER_PORT }}'
+    state: started
+    timeout: 60
+  
+#检查url是否正常
+- debug: msg="Check '{{ CHECK_URL }}' status"
+- name: check url 
+  testurl:
+    url: "{{ CHECK_URL }}"
+    timeout: 5
+    retry: 3
+  when: CHECK_URL != ''

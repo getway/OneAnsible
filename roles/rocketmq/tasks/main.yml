@@ -1,0 +1,18 @@
+---
+# tasks file for rocketmq
+
+#install jdk1.8
+- include: ../../commons/tasks/jdk.yml
+- include: install.yml
+
+- include: mqnamesrv.yml
+  when: rocket_type == 'mqnamesrv'  
+
+- include: mqbroker.yml
+  when: rocket_type == 'mqbroker'  
+
+- name: enable apache-rocketmq
+  service:
+    name: "rocketmq-{{ rocket_type }}"
+    state: started
+    enabled: True

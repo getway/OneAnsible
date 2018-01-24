@@ -1,0 +1,19 @@
+---
+- name: Update mqbroker.service
+  template: 
+    src: rocketmq-mqbroker.service 
+    dest: "/etc/systemd/system/"
+    force: true
+    owner: root
+    group: root
+    mode: "0755"
+  notify: reload systemd
+
+- name: update conf for mqbroker
+  template: 
+    src: broker.conf.j2
+    dest: "/opt/apache-rocketmq/conf/broker.conf"
+    force: true
+    owner: root
+    group: root
+    mode: "0755"

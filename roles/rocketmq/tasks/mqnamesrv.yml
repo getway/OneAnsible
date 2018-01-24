@@ -1,0 +1,10 @@
+---
+- name: Update mqnamesrv.service
+  template: 
+    src: rocketmq-mqnamesrv.service 
+    dest: "/etc/systemd/system/"
+    force: true
+    owner: root
+    group: root
+    mode: "0755" 
+  notify: reload systemd

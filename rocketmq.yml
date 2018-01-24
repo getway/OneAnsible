@@ -1,0 +1,14 @@
+- name: run rocketmq role for all hosts
+  hosts: rocketmq
+  roles:
+    - { role: commons, tags: ["hosts"] }
+
+- name: run mqnamesrv
+  hosts: mqnamesrv
+  roles:
+    - { role: "rocketmq", rocket_type: "mqnamesrv"}
+    
+- name: run mqbroker
+  hosts: mqbroker
+  roles:
+    - { role: "rocketmq", rocket_type: "mqbroker"}

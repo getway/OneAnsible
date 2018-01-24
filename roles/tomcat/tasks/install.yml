@@ -1,8 +1,6 @@
 ---
 # tasks file for tomcat
-- name: Install jdk 1.8
-  yum: name=jdk1.8.0_111 state=present
-  tags: install_jdk1.8
+- include: ../../commons/tasks/jdk.yml
 
 - name: install tomcat
   yum: name=tomcat state=present

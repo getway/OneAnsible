@@ -1,0 +1,17 @@
+[all:children]
+jenkins
+sparkjava-hello-world
+
+[jenkins]
+192.168.59.4
+
+[sparkjava-hello-world]
+192.168.59.5
+192.168.59.6
+
+[jenkins:vars]
+PROJECT_NAME=jenkins
+CHECK_URL="http://www.baidu.com"
+
+[sparkjava-hello-world:vars]
+PROJECT_NAME=sparkjava-hello-world

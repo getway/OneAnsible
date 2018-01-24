@@ -7,6 +7,14 @@
     - curl
     - vim
 
+- name: Install softwares
+  yum: name={{ item }} state=present
+  with_items:
+    - libselinux-python
+    - ntp
+    # - openjdk
+    #- jdk18
+
 - name: get aliyun repo
   copy: src=CentOS-Base.repo dest=/etc/yum.repos.d/CentOS-Base.repo owner=root group=root mode=644
   notify: yum-clean-metadata
@@ -22,13 +30,7 @@
 # - name: Make sure openjdk is uninstall
 #   yum: pkg=openjdk state=absent
 
-- name: Install softwares
-  yum: name={{ item }} state=present
-  with_items:
-    - libselinux-python
-    - ntp
-    # - openjdk
-    #- jdk18
+
 
 - name: Install dev softwares
   yum: name={{ item }} state=present

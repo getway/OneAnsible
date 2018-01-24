@@ -1,0 +1,4 @@
+---
+# handlers file for rocketmq
+- name: reload systemd
+  command: "systemctl daemon-reload"

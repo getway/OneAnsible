@@ -1,5 +1,5 @@
 ---
-ENV: dev
+ENV: test
 CHECK_URL: ''
 ansible_ssh_user: vagrant
 RSYNC_TMP_PATH: /data/rsync/source_code

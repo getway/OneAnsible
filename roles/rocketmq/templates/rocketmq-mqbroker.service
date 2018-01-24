@@ -1,0 +1,22 @@
+[Unit]
+Description=Rocketmq Nameserver: rocketmq-mqbroker.service
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+User=rocketmq
+Group=rocketmq
+Type=simple
+
+Environment=ROCKETMQ_HOME=/opt/apache-rocketmq
+Environment=JAVA_HOME=/usr/java/default
+Environment=JAVA=/usr/java/default/bin/java
+Environment=CLASSPATH=.:/opt/apache-rocketmq/conf:${CLASSPATH}
+#Environment=JAVA_OPT="${JAVA_OPT} -Xdebug -Xrunjdwp:transport=dt_socket,address=9555,server=y,suspend=n"
+Environment=PrivateTmp=true
+
+ExecStart=/opt/apache-rocketmq/bin/mqbroker -c /opt/apache-rocketmq/conf/broker.conf
+ExecStop=/opt/apache-rocketmq/bin/mqshutdown mqbroker
+
+
+[Install]
+WantedBy=multi-user.target
